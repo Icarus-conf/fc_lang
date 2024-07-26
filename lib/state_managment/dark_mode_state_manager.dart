@@ -3,10 +3,9 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 final darkModeStateManagerProvider =
     StateNotifierProvider<DarkModeStateManager, bool>((ref) {
-  return DarkModeStateManager(ref.read);
+  return DarkModeStateManager(ref);
 });
 
 class DarkModeStateManager extends StateNotifier<bool> {
@@ -14,7 +13,7 @@ class DarkModeStateManager extends StateNotifier<bool> {
     _init();
   }
 
-  final Reader read;
+  final Ref read;
 
   void _init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -28,9 +27,8 @@ class DarkModeStateManager extends StateNotifier<bool> {
 
   Future<void> switchDarkMode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    state = !state ; 
-    prefs.setString('darkMode', jsonEncode({'mode' : state}));
+    state = !state;
+    prefs.setString('darkMode', jsonEncode({'mode': state}));
     state = state;
   }
-
 }

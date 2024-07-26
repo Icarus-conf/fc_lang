@@ -163,7 +163,7 @@ class _GlossariesScreenState extends ConsumerState<GlossariesScreen> {
             );
           } else if (element.tag == 'tooltip') {
             return StyledTextWidgetBuilderTag(
-              (context, attributes) => Tooltip(
+              (context, attributes, textContent) => Tooltip(
                   message: attributes['message'],
                   triggerMode: TooltipTriggerMode.tap,
                   textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(

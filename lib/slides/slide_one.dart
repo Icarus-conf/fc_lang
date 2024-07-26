@@ -179,7 +179,7 @@ class _SlideOneState extends ConsumerState<SlideOne> {
             );
           } else if (element.tag == 'tooltip') {
             return StyledTextWidgetBuilderTag(
-              (context, attributes) => Tooltip(
+              (context, attributes, textContent) => Tooltip(
                   message: attributes['message'],
                   triggerMode: TooltipTriggerMode.tap,
                   textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(

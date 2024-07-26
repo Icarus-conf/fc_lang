@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final localizationStateManagerProvider =
     StateNotifierProvider<LocalizationStateManager, Locale?>((ref) {
-  return LocalizationStateManager(ref.read);
+  return LocalizationStateManager(ref);
 });
 
 class LocalizationStateManager extends StateNotifier<Locale?> {
@@ -12,16 +12,16 @@ class LocalizationStateManager extends StateNotifier<Locale?> {
     _init();
   }
 
-  final Reader read;
+  final Ref read;
 
   void _init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Locale? _locale;
+    Locale? locale;
     var jsonData = prefs.getString('locale') ?? '';
     if (jsonData != '') {
-      _locale = Locale.fromSubtags(languageCode: jsonData);
+      locale = Locale.fromSubtags(languageCode: jsonData);
     }
-    state = _locale;
+    state = locale;
   }
 
   Future<void> switchLanguage(String lang) async {
