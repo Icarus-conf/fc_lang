@@ -1,31 +1,48 @@
-name: Flutter CI
+# name: Flutter CI
 
-on: [push, pull_request]
+# on: [push, pull_request]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v3
+
+#     - name: Set up Flutter
+#       uses: subosito/flutter-action@v2
+#       with:
+#         flutter-version: '3.13.0'  # Update to a specific recent version of Flutter
+
+#     - name: Install dependencies
+#       run: flutter pub get
+
+#     - name: Run tests
+#       run: flutter test
+
+#     - name: Build Web
+#       run: flutter build web
+
+#     - name: Deploy to GitHub Pages
+#       uses: peaceiris/actions-gh-pages@v3
+#       with:
+#         github_token: ${{ secrets.GITHUB_TOKEN }}
+#         publish_dir: build/web
+name: Gh-Pages
+
+on: 
+  push:
+      branches: [main]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on:/ ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.13.0'  # Update to a specific recent version of Flutter
-
-    - name: Install dependencies
-      run: flutter pub get
-
-    - name: Run tests
-      run: flutter test
-
-    - name: Build Web
-      run: flutter build web
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: build/web
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+      - uses: bluefiresteam/flutter-gh-pages@v8
+        with:
+          baseHref: /dot_guide_pano/
+          webRenderer: canvaskit
