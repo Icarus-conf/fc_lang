@@ -8,12 +8,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: 'stable' # Specify the Flutter version
+        flutter-version: '3.3.9'  # Specify a specific Flutter version
 
     - name: Install dependencies
       run: flutter pub get
