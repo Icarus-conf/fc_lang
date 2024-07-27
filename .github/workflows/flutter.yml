@@ -10,15 +10,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install Dart SDK
-      uses: dart-lang/setup-dart@v1
-      with:
-        sdk: '3.4.4'  # Specify the exact required Dart SDK version
-
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.3.9'  # Specify the specific Flutter version
+        flutter-version: '3.13.0'  # Update to a specific recent version of Flutter
 
     - name: Install dependencies
       run: flutter pub get
