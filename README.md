@@ -8,7 +8,7 @@ A simple Flash cards app with localization
 
 or Scan This Qr code to go to the website 
 
-![frame](https://github.com/Icarus-conf/flash_cards/blob/main/.github/workflows/url-sit.png)
+<img src="https://github.com/Icarus-conf/flash_cards/blob/main/.github/workflows/url-sit.png" width="500">
 
 
 [Download the release APK to try out on your android phone](https://install.appcenter.ms/users/Icarus_dev/apps/flash-cards-app-language) 
