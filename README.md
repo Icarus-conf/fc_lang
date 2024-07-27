@@ -1,16 +1,18 @@
-# flash_cards
+# flutter_flashcards_portrait_language
 
-A new Flutter project.
+A simple Flash cards app with localization
 
-## Getting Started
+## Preview
 
-This project is a starting point for a Flutter application.
+[Preview a Webapp demo](https://icarus-conf.github.io/flash_cards_site/) 
 
-A few resources to get you started if this is your first Flutter project:
+or Scan This Qr code to go to the website 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![frame](https://github.com/Icarus-conf/flash_cards/blob/main/.github/workflows/url-sit.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+[Download the release APK to try out on your android phone](https://install.appcenter.ms/users/Icarus_dev/apps/flash-cards-app-language) 
+
+or by scaning the following qr code 
+
+![frame (2)](https://github.com/Icarus-conf/flash_cards/blob/main/.github/workflows/url-qr.png)
