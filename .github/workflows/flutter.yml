@@ -1,34 +1,3 @@
-# name: Flutter CI
-
-# on: [push, pull_request]
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: Checkout repository
-#       uses: actions/checkout@v3
-
-#     - name: Set up Flutter
-#       uses: subosito/flutter-action@v2
-#       with:
-#         flutter-version: '3.13.0'  # Update to a specific recent version of Flutter
-
-#     - name: Install dependencies
-#       run: flutter pub get
-
-#     - name: Run tests
-#       run: flutter test
-
-#     - name: Build Web
-#       run: flutter build web
-
-#     - name: Deploy to GitHub Pages
-#       uses: peaceiris/actions-gh-pages@v3
-#       with:
-#         github_token: ${{ secrets.GITHUB_TOKEN }}
-#         publish_dir: build/web
 name: Update Web Branch
 
 on:
@@ -44,13 +13,12 @@ jobs:
     - name: Checkout Main Branch
       uses: actions/checkout@v3
       with:
-        repository: Icarus-conf/fc_lang
-        ref: main
+        fetch-depth: 0
 
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.13.0'
+        flutter-version: '3.13.0'  # Ensure this version includes Dart SDK >= 3.0.0
 
     - name: Install Dependencies
       run: flutter pub get
@@ -58,21 +26,11 @@ jobs:
     - name: Build Flutter Web
       run: flutter build web --release --no-tree-shake-icons
 
-    - name: Check Build Directory
-      run: |
-        echo "Listing build directory:"
-        ls -la build
-        echo "Listing build/web directory:"
-        if [ -d "build/web" ]; then
-          ls -la build/web
-        else
-          echo "Directory build/web does not exist."
-          exit 1
-        fi
+    - name: Fetch All Branches
+      run: git fetch --all
 
     - name: Create or Checkout Web Branch
       run: |
-        git fetch --all
         if git show-ref --verify --quiet refs/heads/web-branch; then
           git checkout web-branch
         else
@@ -81,17 +39,11 @@ jobs:
 
     - name: Copy Built Files to Web Branch
       run: |
-        if [ -d "build/web" ]; then
-          echo "Copying build/web contents to web branch"
-          rm -rf *  # clear the web branch directory
-          cp -R build/web/* .
-          git add .
-          git commit -m "Update web branch with latest changes from main"
-          git push origin web-branch
-        else
-          echo "Build directory does not exist. Skipping file copy."
-          exit 1
-        fi
+        rm -rf *  # clear the web branch directory
+        cp -R build/web/* .
+        git add .
+        git commit -m "Update web branch with latest changes from main"
+        git push origin web-branch
 
     - name: Deploy to GitHub Pages
       run: |
