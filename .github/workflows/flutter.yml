@@ -32,12 +32,7 @@ jobs:
         echo "Listing build directory:"
         ls -la build
         echo "Listing build/web directory:"
-        if [ -d "build/web" ]; then
-          ls -la build/web
-        else
-          echo "Directory build/web does not exist."
-          exit 1
-        fi
+        ls -la build/web
 
     - name: Create or Checkout Web Branch
       run: |
@@ -58,11 +53,12 @@ jobs:
           git commit -m "Update web branch with latest changes from main"
           git push origin web-branch
         else
-          echo "Build directory does not exist. Skipping file copy."
+          echo "Directory build/web does not exist or is empty. Aborting."
           exit 1
         fi
 
     - name: Deploy to GitHub Pages
+      if: success()
       run: |
         git checkout -B gh-pages
         git add .
