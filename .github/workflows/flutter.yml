@@ -64,7 +64,12 @@ jobs:
         echo "Listing build directory:"
         ls -la build
         echo "Listing build/web directory:"
-        ls -la build/web
+        if [ -d "build/web" ]; then
+          ls -la build/web
+        else
+          echo "Directory build/web does not exist."
+          exit 1
+        fi
 
     - name: Create or Checkout Web Branch
       run: |
