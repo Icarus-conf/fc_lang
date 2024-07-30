@@ -13,13 +13,12 @@ jobs:
     - name: Checkout Main Branch
       uses: actions/checkout@v3
       with:
-        repository: Icarus-conf/fc_lang
-        ref: main
+        fetch-depth: 0
 
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.13.0'
+        flutter-version: '3.13.0'  # Ensure this version includes Dart SDK >= 3.0.0
 
     - name: Install Dependencies
       run: flutter pub get
@@ -27,38 +26,20 @@ jobs:
     - name: Build Flutter Web
       run: flutter build web --release --no-tree-shake-icons
 
-    - name: Verify Build Output
+    - name: Checkout Web Branch
       run: |
-        echo "Listing build directory:"
-        ls -la build
-        echo "Listing build/web directory:"
-        ls -la build/web
-
-    - name: Create or Checkout Web Branch
-      run: |
-        git fetch --all
-        if git show-ref --verify --quiet refs/heads/web-branch; then
-          git checkout web-branch
-        else
-          git checkout -b web-branch
-        fi
+        git fetch origin
+        git checkout web-branch  # replace with your web branch name
 
     - name: Copy Built Files to Web Branch
       run: |
-        if [ -d "build/web" ]; then
-          echo "Copying build/web contents to web branch"
-          rm -rf *  # clear the web branch directory
-          cp -R build/web/* .
-          git add .
-          git commit -m "Update web branch with latest changes from main"
-          git push origin web-branch
-        else
-          echo "Directory build/web does not exist or is empty. Aborting."
-          exit 1
-        fi
+        rm -rf *  # clear the web branch directory
+        cp -R build/web/* .
+        git add .
+        git commit -m "Update web branch with latest changes from main"
+        git push origin web-branch
 
     - name: Deploy to GitHub Pages
-      if: success()
       run: |
         git checkout -B gh-pages
         git add .
