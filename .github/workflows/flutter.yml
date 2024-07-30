@@ -51,3 +51,9 @@ jobs:
         git add .
         git commit -m "Deploy to GitHub Pages"
         git push --force origin gh-pages
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts
+        path: build/web
