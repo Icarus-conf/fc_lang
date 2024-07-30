@@ -44,13 +44,13 @@ jobs:
     - name: Checkout Main Branch
       uses: actions/checkout@v3
       with:
-        repository: Icarus-conf/fc_lang  # Use your GitHub username
-        ref: main  # Specify the default branch explicitly
+        repository: Icarus-conf/fc_lang
+        ref: main
 
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.13.0'  # Ensure this version includes Dart SDK >= 3.0.0
+        flutter-version: '3.13.0'
 
     - name: Install Dependencies
       run: flutter pub get
@@ -61,6 +61,8 @@ jobs:
     - name: Check Build Directory
       run: |
         echo "Listing build directory:"
+        ls -la build
+        echo "Listing build/web directory:"
         ls -la build/web
 
     - name: Create or Checkout Web Branch
@@ -90,4 +92,4 @@ jobs:
         git checkout -B gh-pages
         git add .
         git commit -m "Deploy to GitHub Pages"
-        git push --force origin gh-pages        git push --force origin gh-pages
+        git push --force origin gh-pages
