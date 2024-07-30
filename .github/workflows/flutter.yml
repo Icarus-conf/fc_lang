@@ -24,17 +24,10 @@ jobs:
     - name: Install Dependencies
       run: flutter pub get
 
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifacts
-        path: build/web
-
-
     - name: Build Flutter Web
       run: flutter build web --release --no-tree-shake-icons
 
-    - name: Check Build Directory
+    - name: Verify Build Output
       run: |
         echo "Listing build directory:"
         ls -la build
