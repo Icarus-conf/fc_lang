@@ -29,6 +29,7 @@
 #       with:
 #         github_token: ${{ secrets.GITHUB_TOKEN }}
 #         publish_dir: build/web
+
 name: Update Web Branch
 
 on:
@@ -77,6 +78,7 @@ jobs:
     - name: Copy Built Files to Web Branch
       run: |
         if [ -d "build/web" ]; then
+          echo "Copying build/web contents to web branch"
           rm -rf *  # clear the web branch directory
           cp -R build/web/* .
           git add .
