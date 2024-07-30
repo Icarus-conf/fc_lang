@@ -44,8 +44,8 @@ jobs:
     - name: Checkout Main Branch
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0
-        repository: user/main  # Replace 'user' with your GitHub username or organization
+        repository: Icarus-conf/fc_lang  # Use your GitHub username
+        ref: main  # Specify the default branch explicitly
 
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
@@ -90,4 +90,4 @@ jobs:
         git checkout -B gh-pages
         git add .
         git commit -m "Deploy to GitHub Pages"
-        git push --force origin gh-pages
+        git push --force origin gh-pages        git push --force origin gh-pages
