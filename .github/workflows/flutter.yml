@@ -29,7 +29,6 @@
 #       with:
 #         github_token: ${{ secrets.GITHUB_TOKEN }}
 #         publish_dir: build/web
-
 name: Update Web Branch
 
 on:
