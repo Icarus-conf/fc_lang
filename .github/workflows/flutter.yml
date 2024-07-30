@@ -57,10 +57,16 @@ jobs:
     - name: Build Flutter Web
       run: flutter build web --release --no-tree-shake-icons
 
-    - name: Checkout Web Branch
+    - name: Fetch All Branches
+      run: git fetch --all
+
+    - name: Create or Checkout Web Branch
       run: |
-        git fetch origin
-        git checkout web-branch  # replace with your web branch name
+        if git show-ref --verify --quiet refs/heads/web-branch; then
+          git checkout web-branch
+        else
+          git checkout -b web-branch
+        fi
 
     - name: Copy Built Files to Web Branch
       run: |
