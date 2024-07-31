@@ -28,7 +28,6 @@ workflows:
           git config --global user.email "$GIT_USER_EMAIL"
           git config --global credential.helper 'cache --timeout=3600'
           echo "https://$APP_PASSWORD:@github.com" > ~/.git-credentials
-          git push "https://Icarus-conf:$APP_PASSWORD@github.com/fc_lang" --tags
 
       - name: Checkout web branch
         script: |
