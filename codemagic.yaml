@@ -1,26 +1,55 @@
 workflows:
   build_and_deploy:
-    name: Build and Deploy
+    name: Build and Deploy to GitHub Pages
     environment:
-      variables:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      flutter: stable
+      env_groups:
+        - web_deploy  # Reference the created environment variable group
     scripts:
-      - name: Checkout repository
+      - name: Install dependencies
+        script: flutter pub get
+
+      - name: Build web
+        script: flutter build web --release --no-tree-shake-icons
+
+      - name: Verify build output
         script: |
-          git config --global user.name "Icarus-conf"
-          git config --global user.email "brain.m.config@gmail.com"
-          git clone https://github.com/Icarus-conf/fc_lang.git
-          cd fc_lang
-          
-      - name: Build Flutter App
+          if [ ! -d "build/web" ]; then
+            echo "Build directory does not exist. Aborting."
+            exit 1
+          fi
+          ls -la build/web
+
+      - name: Configure Git
         script: |
-          flutter build web
+          git config --global user.name "$GIT_USER_NAME"
+          git config --global user.email "$GIT_USER_EMAIL"
+          git config --global credential.helper 'cache --timeout=3600'
+          echo "https://${GITHUB_TOKEN}:@github.com" > ~/.git-credentials
+
+      - name: Checkout web branch
+        script: |
+          git fetch --all
+          if git show-ref --verify --quiet refs/heads/web-branch; then
+            git checkout web-branch
+          else
+            git checkout -b web-branch
+          fi
 
       - name: Copy built files to web branch
         script: |
-          git fetch origin
-          git checkout web-branch
+          rm -rf *  # Clear the web branch directory
           cp -R build/web/* .
           git add .
-          git commit -m "Deploy to web"
-          git push https://$GITHUB_TOKEN@github.com/Icarus-conf/fc_lang.git web-branch
+          git commit -m "Update web branch with latest changes from main"
+          git push origin web-branch
+
+      - name: Deploy to GitHub Pages
+        script: |
+          git checkout -B gh-pages
+          git add .
+          git commit -m "Deploy to GitHub Pages"
+          git push --force origin gh-pages
+
+artifacts:
+  - build/web
