@@ -3,10 +3,8 @@ workflows:
     name: Build and Deploy to GitHub Pages
     environment:
       flutter: stable
-      vars:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GIT_USER_NAME: "Icarus-conf"
-        GIT_USER_EMAIL: "brain.m.config@gmail.com"
+      groups:
+        - web_deploy  # Replace with the actual name of your environment variable group
     scripts:
       - name: Install dependencies
         script: flutter pub get
@@ -26,7 +24,7 @@ workflows:
         script: |
           git config --global user.name "$GIT_USER_NAME"
           git config --global user.email "$GIT_USER_EMAIL"
-          git config --global credential.helper 'cache --timeout=3600'
+          git config --global credential.helper 'store'
           echo "https://${GITHUB_TOKEN}:@github.com" > ~/.git-credentials
 
       - name: Checkout web branch
