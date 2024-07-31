@@ -5,7 +5,6 @@ workflows:
       flutter: stable
       env_groups:
         - repo_credentials
-        - web_deploy
     scripts:
       - name: Install dependencies
         script: |
