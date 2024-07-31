@@ -3,7 +3,7 @@ workflows:
     name: Build and Deploy to GitHub Pages
     environment:
       flutter: stable
-      env_groups:
+      groups:
         - web_deploy  # Reference the created environment variable group
     scripts:
       - name: Install dependencies
