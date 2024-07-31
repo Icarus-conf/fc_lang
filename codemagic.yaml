@@ -3,7 +3,7 @@ workflows:
     name: Build and Deploy to GitHub Pages
     environment:
       flutter: stable
-      env_groups:
+      groups:
         - repo_credentials
     scripts:
       - name: Install dependencies
