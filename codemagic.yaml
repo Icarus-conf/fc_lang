@@ -24,6 +24,7 @@ workflows:
         script: |
           git config --global user.name "$GIT_USER_NAME"
           git config --global user.email "$GIT_USER_EMAIL"
+          curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/Icarus-conf/repos
           echo "https://${GITHUB_TOKEN}:@github.com" > ~/.git-credentials
 
 
