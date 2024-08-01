@@ -27,7 +27,7 @@ workflows:
           git config --global user.name "$GIT_USER_NAME"
           git config --global user.email "$GIT_USER_EMAIL"
           git config --global credential.helper 'cache --timeout=3600'
-          echo "https://$APP_PASSWORD:@github.com" > ~/.git-credentials
+          echo "https://$GIT_USER_NAME:$APP_PASSWORD:@github.com" > ~/.git-credentials
 
       - name: Checkout web branch
         script: |
